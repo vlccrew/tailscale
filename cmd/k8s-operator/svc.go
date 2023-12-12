@@ -214,7 +214,8 @@ func (a *ServiceReconciler) maybeProvision(ctx context.Context, logger *zap.Suga
 		// TODO (irbekrm): cluster.local is the default DNS name, but
 		// can be changed by users. Make this configurable or figure out
 		// how to discover the DNS name from within operator
-		headlessSvcName := hsvc.Name + "." + hsvc.Namespace + ".svc.cluster.local"
+		clusterDomain := "tidb-staging-0"
+		headlessSvcName := hsvc.Name + "." + hsvc.Namespace + ".svc." + clusterDomain
 		if svc.Spec.ExternalName != headlessSvcName || svc.Spec.Type != corev1.ServiceTypeExternalName {
 			svc.Spec.ExternalName = headlessSvcName
 			svc.Spec.Selector = nil
